@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Center | Mini Comet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a202c;
+            --secondary: #4a5568;
+            --accent: #3182ce;
+            --accent-hover: #2c5282;
+            --bg-body: #f7fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --warning-bg: #fffaf0;
+            --warning-border: #fbd38d;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--secondary);
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Header --- */
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: auto;
+        }
+
+        .brand-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .back-link {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            background: rgba(49, 130, 206, 0.05);
+        }
+
+        /* --- Layout --- */
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Mobile Nav (Scrollable) */
+        .sidebar {
+            background: var(--bg-body);
+            position: sticky;
+            top: 72px; /* Height of header */
+            z-index: 900;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .nav-menu::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-menu li a {
+            display: block;
+            padding: 1rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-menu li a:active, .nav-menu li a:focus {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Content Area */
+        .content-area {
+            background: var(--bg-card);
+            padding: 2rem 1.25rem;
+            min-height: 100vh;
+        }
+
+        h1.page-title {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        section {
+            padding-top: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        .badge-date {
+            display: inline-block;
+            background: #edf2f7;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer-alert {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .contact-box {
+            background: var(--bg-body);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .email-link {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        footer {
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #718096;
+            border-top: 1px solid var(--border);
+        }
+
+        /* --- Tablet & Desktop Overrides --- */
+        @media (min-width: 992px) {
+            .header-container {
+                padding: 0 2rem;
+            }
+            
+            .brand-text { font-size: 1.25rem; }
+            .logo-img { width: 48px; }
+
+            .main-layout {
+                flex-direction: row;
+                padding: 3rem 2rem;
+                gap: 4rem;
+            }
+
+            .sidebar {
+                position: sticky;
+                top: 100px;
+                width: 240px;
+                height: fit-content;
+                background: transparent;
+                border-bottom: none;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                border-left: 2px solid var(--border);
+            }
+
+            .nav-menu li a {
+                border-bottom: none;
+                border-left: 2px solid transparent;
+                margin-left: -2px;
+                padding: 0.75rem 1.5rem;
+            }
+
+            .nav-menu li a:hover {
+                border-left-color: var(--accent);
+                background: rgba(49, 130, 206, 0.05);
+            }
+
+            .content-area {
+                padding: 3rem;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            }
+
+            h1.page-title { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="index.html" class="brand">
+            <img src="logo.png" class="logo-img" alt="Mini Comet logo" onerror="this.src='https://placehold.co/48x48/1a202c/ffffff?text=MC'">
+            <span class="brand-text">Mini Comet</span>
+        </a>
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18L9 12L15 6"/></svg>
+            <span>Back to Website</span>
+        </a>
+    </div>
+</header>
+
+<div class="main-layout">
+    <aside class="sidebar">
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#terms">Terms of Service</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#disclaimer">Disclaimer</a></li>
+                <li><a href="#contact">Contact Support</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content-area">
+        <h1 class="page-title">Legal Center</h1>
+        <p class="page-subtitle">Transparency, trust, and our commitment to you.</p>
+
+        <section id="terms">
+            <span class="badge-date">Effective: Dec 30, 2025</span>
+            <h2>Terms and Conditions</h2>
+            <p>Welcome to Mini Comet! By accessing or using our website, you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully.</p>
+            
+            <h3>1. Use of the Website</h3>
+            <p>Mini Comet provides a platform to help users discover gift ideas through affiliate links. You agree to:</p>
+            <ul>
+                <li>Use the website only for lawful purposes.</li>
+                <li>Not attempt to disrupt or damage the website's services.</li>
+                <li>Respect the intellectual property rights of others.</li>
+            </ul>
+
+            <h3>2. Affiliate Model</h3>
+            <p>Mini Comet operates as an affiliate marketer. We may earn a commission when you click on links and make purchases. This comes at no extra cost to you and helps support our platform.</p>
+
+            <h3>3. Intellectual Property</h3>
+            <p>All content, logos, graphics, and designs on Mini Comet are the property of Mini Comet unless otherwise stated. Unauthorized reproduction or distribution is strictly prohibited.</p>
+
+            <h3>4. Governing Law</h3>
+            <p>These Terms and Conditions are governed by the laws of India. Any disputes will be subject to the exclusive jurisdiction of Indian courts.</p>
+        </section>
+
+        <section id="privacy">
+            <span class="badge-date">Effective: Dec 30, 2025</span>
+            <h2>Privacy Policy</h2>
+            <p>At Mini Comet, we believe in data minimalism. We only collect what is strictly necessary to improve your experience.</p>
+
+            <h3>1. Information Collection</h3>
+            <p><strong>Personal Data:</strong> We do not require account creation. We only collect your email address if you voluntarily contact us.</p>
+            <p><strong>Usage Data:</strong> We automatically collect anonymous data such as browser type, device information, and pages visited to analyze website performance.</p>
+
+            <h3>2. Third-Party Links</h3>
+            <p>Our website contains links to third-party retailers like Amazon and Flipkart. Once you leave our site, our Privacy Policy no longer applies.</p>
+
+            <h3>3. Cookies</h3>
+            <p>We use cookies to enhance user experience and analyze traffic. You can choose to disable cookies through your browser settings.</p>
+
+            <h3>4. Data Security</h3>
+            <p>We implement reasonable security measures to protect your information. However, no method of transmission over the internet is 100% secure.</p>
+        </section>
+
+        <section id="disclaimer">
+            <h2>Disclaimer</h2>
+            <div class="disclaimer-alert">
+                <strong>Important Notice</strong>
+                The information provided on Mini Comet is for general informational and gift-suggestion purposes only. We do not sell products directly.
+            </div>
+            <p>Mini Comet participates in various affiliate marketing programs, which means we may get paid commissions on editorially chosen products purchased through our links.</p>
+
+            <h3>Product Accuracy</h3>
+            <p>While we strive for accuracy, product prices, ratings, and availability are subject to change without notice.</p>
+
+            <h3>Limitation of Liability</h3>
+            <p>Mini Comet shall not be held responsible for product quality, delivery delays, or warranty claims.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>If you have questions regarding these policies, please do not hesitate to contact our compliance team.</p>
+            <div class="contact-box">
+                <p>For legal inquiries and support:</p>
+                <a href="mailto:support@minicomet.com" class="email-link">support@minicomet.com</a>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer>
+    <p>&copy; 2025 Mini Comet. All rights reserved.</p>
+    <p>Designed with care in India.</p>
+</footer>
+
+</body>
+</html>

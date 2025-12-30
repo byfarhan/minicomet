@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Comet | Curated Gifts & Gear</title>
+    <meta name="description" content="Find the perfect gift. Curated tech, home, and lifestyle products.">
+    
+    <!-- Google Fonts: Plus Jakarta Sans (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- MODERN CSS VARIABLES --- */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --accent: #8b5cf6;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --radius-sm: 12px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button { cursor: pointer; border: none; font-family: inherit; transition: all 0.2s ease; }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+
+        /* --- UTILS --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .flex-center { display: flex; align-items: center; justify-content: center; }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content { display: flex; justify-content: space-between; align-items: center; position: relative; }
+
+        .logo { 
+            display: flex; align-items: center; gap: 12px; 
+            font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem; color: var(--text-main);
+        }
+        .site-title {
+            font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem;
+            color: var(--text-secondary); letter-spacing: 0.02em; text-transform: lowercase;
+            display: inline-block;
+        }
+        
+        .header-logo-img { height: 20px; width: auto; object-fit: contain; }
+
+        /* Desktop Nav */
+        .desktop-nav { display: flex; gap: 18px; align-items: center; }
+        /* Modern nav links with subtle underline animation and pill CTA */
+        .nav-link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            border-radius: 999px;
+            background: transparent;
+            transition: color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 6px;
+            transform: translateX(-50%);
+            height: 3px;
+            width: 0;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 220ms ease;
+        }
+        .nav-link:hover {
+            color: var(--text-main);
+            transform: translateY(-3px);
+        }
+        .nav-link:hover::after { width: 60%; }
+
+        /* Active / current link */
+        .nav-link.active, .nav-link[aria-current="page"] {
+            color: var(--primary-dark);
+            background: linear-gradient(90deg, rgba(79,70,229,0.08), rgba(139,92,246,0.06));
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Strong CTA variant for primary action */
+        .nav-cta {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white !important;
+            padding: 10px 16px;
+            border-radius: 999px;
+            box-shadow: 0 8px 22px rgba(79,70,229,0.14);
+        }
+
+        /* Mobile and footer link adjustments */
+        .mobile-menu .nav-link { display: block; padding: 10px 12px; border-radius: 10px; }
+        footer .footer-text a { color: var(--text-secondary); padding: 6px 10px; border-radius: 8px; transition: all 0.15s ease; }
+        footer .footer-text a:hover { background: rgba(79,70,229,0.06); color: var(--primary-dark); transform: translateY(-1px); }
+
+        /* Mobile Menu Button (Hamburger) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            padding: 5px;
+            z-index: 102;
+        }
+        .hamburger span {
+            width: 24px; height: 2px; 
+            background-color: var(--text-main); 
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Mobile Menu Dropdown */
+        .mobile-menu {
+            position: absolute;
+            top: 100%; left: 0; right: 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            flex-direction: column;
+            gap: 15px;
+            display: none;
+            box-shadow: var(--shadow-md);
+            z-index: 101;
+        }
+        .mobile-menu.active { display: flex; animation: slideDown 0.3s ease-out; }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            padding: 100px 20px 80px;
+            overflow: hidden;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        /* Mesh Gradient Background */
+        .hero::before {
+            content: ''; position: absolute; top: -20%; right: -10%; width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%; z-index: 0;
+        }
+        .hero::after {
+            content: ''; position: absolute; bottom: -10%; left: -10%; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%; z-index: 0;
+        }
+
+        /* SIMPLIFIED COMET ANIMATION */
+        .comet {
+            position: absolute;
+            width: 80px; height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), #cbd5e1);
+            transform: rotate(-45deg);
+            opacity: 0;
+            z-index: 0;
+        }
+        
+        /* Just simple moving lines */
+        .comet:nth-child(1) { top: 10%; right: 10%; animation: shoot 4s infinite ease-in-out; animation-delay: 0s; }
+        .comet:nth-child(2) { top: 30%; right: 25%; animation: shoot 6s infinite ease-in-out; animation-delay: 2s; width: 60px; }
+        .comet:nth-child(3) { top: 15%; right: 45%; animation: shoot 5s infinite ease-in-out; animation-delay: 1.5s; width: 100px; }
+
+        @keyframes shoot {
+            0% { transform: rotate(-45deg) translateX(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: rotate(-45deg) translateX(-400px); opacity: 0; }
+        }
+
+        .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+
+        .hero-logo { height: 100px; width: auto; object-fit: contain; margin: 0 auto 30px; display: block; }
+
+        .pill-badge {
+            display: inline-flex; align-items: center; background: #eef2ff; color: var(--primary);
+            padding: 6px 14px; border-radius: 100px; font-size: 0.85rem; font-weight: 600;
+            margin-bottom: 24px; border: 1px solid rgba(79, 70, 229, 0.1);
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;
+            line-height: 1.1; margin-bottom: 24px; color: var(--text-main); letter-spacing: -0.04em;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem); color: var(--text-secondary);
+            max-width: 540px; margin: 0 auto 40px; line-height: 1.7;
+        }
+
+        .hero-btns { display: flex; gap: 16px; justify-content: center; }
+
+        .btn { padding: 14px 28px; border-radius: 100px; font-weight: 600; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--text-main); color: white; box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(15, 23, 42, 0.4); }
+        .btn-secondary { background: white; color: var(--text-main); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .btn-secondary:hover { border-color: var(--text-secondary); background: #f8fafc; }
+
+        /* --- FILTERS --- */
+        .filter-section {
+            position: sticky; top: 72px; z-index: 90; padding: 20px 0;
+            background: linear-gradient(180deg, var(--bg-body) 80%, rgba(248, 250, 252, 0) 100%);
+            margin-bottom: 20px;
+        }
+
+        .filter-container {
+            display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+        .filter-container::-webkit-scrollbar { display: none; }
+
+        .filter-chip {
+            background: white; border: 1px solid var(--border); padding: 8px 18px;
+            border-radius: 100px; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);
+            white-space: nowrap; transition: all 0.2s ease;
+        }
+        .filter-chip:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-chip.active { background: var(--text-main); color: white; border-color: var(--text-main); box-shadow: var(--shadow-md); }
+
+        /* --- PRODUCT GRID --- */
+        .grid-section { padding-bottom: 80px; min-height: 60vh; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px; }
+
+        .card {
+            background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border);
+            overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative; cursor: pointer; display: flex; flex-direction: column;
+            opacity: 0; animation: fadeIn 0.6s forwards;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(79, 70, 229, 0.3); }
+
+        .card-img-container {
+            height: 240px; padding: 24px; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle, #ffffff 0%, #f1f5f9 100%); position: relative;
+            overflow: hidden; /* clip scaled image so it doesn't overlap tags */
+            border-radius: 12px; /* round the image preview container */
+        }
+        .card-img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.4s ease; border-radius: 10px; position: relative; z-index: 1; }
+        .card:hover .card-img { transform: scale(1.05); }
+
+        .store-tag {
+            position: absolute; top: 16px; right: 16px; background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.04);
+            z-index: 3; /* ensure tag sits above the image preview */
+        }
+
+        .card-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-meta { font-size: 0.75rem; font-weight: 600; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+        .card-title { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; line-height: 1.4; }
+        .card-price { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: auto; padding-top: 16px; }
+        .price-note { font-size: 0.82rem; color: var(--text-light); margin-top: 6px; line-height: 1.3; }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 1000;
+            display: none; justify-content: center; align-items: center; padding: 20px;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active { display: flex; opacity: 1; }
+
+        .modal-box {
+            background: white; width: 100%; max-width: 900px; border-radius: 24px;
+            overflow: hidden; display: grid; grid-template-columns: 1fr 1fr;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.8);
+            width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; z-index: 10; cursor: pointer;
+        }
+        .modal-img-col { background: #f1f5f9; display: flex; align-items: center; justify-content: center; padding: 40px; }
+        .modal-img-col img { max-height: 350px; mix-blend-mode: multiply; }
+        .modal-info-col { padding: 48px; display: flex; flex-direction: column; }
+        .modal-cat { color: var(--accent); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 12px; }
+        .modal-title { font-family: var(--font-heading); font-size: 2rem; font-weight: 800; line-height: 1.1; margin-bottom: 16px; color: var(--text-main); }
+        .modal-price { font-size: 1.75rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+        .modal-price-note { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.35; }
+        .modal-desc { color: var(--text-secondary); margin-bottom: 40px; flex-grow: 1; }
+
+        /* --- FOOTER --- */
+        footer { background: white; border-top: 1px solid var(--border); padding: 60px 0 40px; text-align: center; }
+        .footer-logo { font-family: var(--font-heading); font-weight: 800; font-size: 1.2rem; margin-bottom: 20px; display: inline-block; }
+        .footer-text { color: var(--text-light); font-size: 0.9rem; max-width: 600px; margin: 0 auto; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .modal-box { grid-template-columns: 1fr; height: 90vh; overflow-y: auto; }
+            .modal-img-col { height: 250px; padding: 20px; }
+            .modal-info-col { padding: 30px; }
+            .filter-container { padding-left: 24px; padding-right: 24px; margin: 0 -24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <header>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Mini Comet" class="header-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <span class="site-title">Mini comet</span>
+            </a>
+            
+            <!-- Desktop Links -->
+            <nav class="desktop-nav">
+                <a href="#shop" class="nav-link nav-cta">Shop</a>
+                <a href="legal_center.html#terms" class="nav-link">Terms</a>
+                <a href="legal_center.html#disclaimer" class="nav-link">Disclaimer</a>
+                <a href="legal_center.html#privacy" class="nav-link">Privacy Policy</a>
+                <a href="legal_center.html#contact" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#shop" class="nav-link nav-cta" onclick="toggleMenu()">Shop</a>
+                <a href="legal_center.html#terms" class="nav-link">Terms & Conditions</a>
+                <a href="legal_center.html#disclaimer" class="nav-link">Disclaimer</a>
+                <a href="legal_center.html#privacy" class="nav-link">Privacy Policy</a>
+                <a href="legal_center.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <!-- Simplified Falling Comets -->
+        <div class="comet"></div>
+        <div class="comet"></div>
+        <div class="comet"></div>
+
+        <div class="hero-content">
+            <!-- Main Hero Logo -->
+            <img src="logo.png" alt="Mini Comet Logo" class="hero-logo" onerror="this.style.display='none'">
+            
+            <div class="pill-badge">Fresh Collection 2025</div>
+            <h1>Tiny searches.<br>Perfect gifts.🎁</h1>
+            <p>Skip the endless scrolling. We've hand-picked the best tech, home, and lifestyle upgrades from across the web. Thoughtfully curated for quality.</p>
+            <div class="hero-btns">
+                <a href="#shop" class="btn btn-primary">Start Browsing</a>
+                <a href="#about" class="btn btn-secondary">How it works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container grid-section" id="shop">
+        
+        <!-- Filters (Dynamic) -->
+        <div class="filter-section">
+            <div class="filter-container" id="filterContainer">
+                <button class="filter-chip active" data-type="all">All</button>
+                <!-- Categories will be injected here via JS -->
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div id="loadingState" style="text-align: center; padding: 60px; color: var(--text-light);">
+            Loading collection from the cosmos...
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+
+    </main>
+
+    <!-- Modal -->
+    <div id="productModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-img-col">
+                <img id="modalImg" src="" alt="">
+            </div>
+            <div class="modal-info-col">
+                <div id="modalCategory" class="modal-cat">Category</div>
+                <h2 id="modalTitle" class="modal-title">Product Name</h2>
+                <div id="modalPrice" class="modal-price">$0.00</div>
+                <div class="modal-price-note">Price shown is for reference. Final price will be displayed on Amazon/Flipkart.</div>
+                <p id="modalDesc" class="modal-desc">Description goes here...</p>
+                <a id="modalBtn" href="#" target="_blank" class="btn btn-primary" style="justify-content: center;">
+                    View on Store ↗
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="about">
+        <div class="container">
+            <div class="footer-logo">Mini Comet</div>
+            <div class="footer-text">
+                <p style="margin-bottom: 16px;">
+                    We believe in quality over quantity. Every item listed here is something we would buy ourselves.
+                </p>
+                <div style="margin-bottom: 20px; font-size: 0.85rem;">
+                    <a href="legal_center.html#terms" style="margin: 0 10px;">Terms</a>
+                    <a href="legal_center.html#disclaimer" style="margin: 0 10px;">Disclaimer</a>
+                    <a href="legal_center.html#privacy" style="margin: 0 10px;">Privacy</a>
+                    <a href="legal_center.html#contact" style="margin: 0 10px;">Contact</a>
+                </div>
+                <p style="font-size: 0.8rem; opacity: 0.7;">
+                    Disclosure: We may earn a commission if you buy through our links. This keeps the site ad-free.
+                    <br><br>
+                    &copy; 2025 Mini Comet. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // CONFIG
+        const SPREADSHEET_ID = '1a6lXMttTCKD7wFu_wcG36r_nl_MM18H_bHrp-3WFJD0'; // Insert your actual Sheet ID here
+        const SHEET_NAME = 'Sheet1';
+        const API_URL = `https://opensheet.elk.sh/${SPREADSHEET_ID}/${SHEET_NAME}`;
+
+        let products = [];
+        let filterState = {
+            category: 'all',
+            platform: 'all'
+        };
+
+        // Init - No Mock Data Fallback
+        async function init() {
+            const loader = document.getElementById('loadingState');
+            try {
+                if (!SPREADSHEET_ID) {
+                    loader.innerHTML = "Configuration Error: No Spreadsheet ID provided.";
+                    return;
+                }
+                
+                const res = await fetch(API_URL);
+                if (!res.ok) throw new Error("API Error");
+                
+                products = await res.json();
+                
+                if (products.length === 0) {
+                    loader.innerHTML = "No products found in the sheet.";
+                    return;
+                }
+
+                loader.style.display = 'none';
+                generateFilterButtons(); 
+                renderProducts();
+            } catch (e) {
+                console.error(e);
+                loader.innerHTML = "Unable to load products. Please check connection.";
+            }
+        }
+
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Dynamically create category buttons from data
+        function generateFilterButtons() {
+            const container = document.getElementById('filterContainer');
+            
+            // Get unique categories and platforms
+            const categories = [...new Set(products.map(p => p.category))].filter(Boolean);
+            const platforms = [...new Set(products.map(p => p.platform))].filter(Boolean);
+
+            // Create Category Buttons
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-chip';
+                btn.dataset.category = cat;
+                btn.textContent = cat;
+                container.appendChild(btn);
+            });
+
+            // Separator
+            if(categories.length > 0 && platforms.length > 0) {
+                const sep = document.createElement('div');
+                sep.style.width = '1px'; sep.style.background = 'var(--border)'; sep.style.margin = '0 10px';
+                container.appendChild(sep);
+            }
+
+            // Create Platform Buttons
+            platforms.forEach(plat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-chip';
+                btn.dataset.platform = plat;
+                btn.textContent = plat;
+                container.appendChild(btn);
+            });
+
+            // Re-attach event listeners
+            attachFilterListeners();
+        }
+
+        function attachFilterListeners() {
+            document.querySelectorAll('.filter-chip').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isPlatform = btn.dataset.platform !== undefined;
+                    
+                    document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    if (btn.dataset.type === 'all') {
+                        filterState.category = 'all';
+                        filterState.platform = 'all';
+                    } else if (isPlatform) {
+                        filterState.platform = btn.dataset.platform;
+                        filterState.category = 'all'; 
+                    } else {
+                        filterState.category = btn.dataset.category;
+                        filterState.platform = 'all';
+                    }
+                    
+                    renderProducts();
+                });
+            });
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            const filtered = products.filter(p => {
+                const catMatch = filterState.category === 'all' || p.category === filterState.category;
+                const platMatch = filterState.platform === 'all' || p.platform === filterState.platform;
+                return catMatch && platMatch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-secondary);">No products found in this selection.</div>`;
+                return;
+            }
+
+            filtered.forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.animationDelay = `${index * 0.05}s`; 
+                card.onclick = () => openModal(p);
+
+                const safeImg = p.image || 'https://placehold.co/400x400?text=No+Image';
+
+                card.innerHTML = `
+                    <div class="card-img-container">
+                        <span class="store-tag" style="color: ${p.platform === 'Amazon' ? '#f59e0b' : '#2563eb'}">${p.platform}</span>
+                        <img src="${safeImg}" class="card-img" alt="${p.name}" onerror="this.src='https://placehold.co/400x400?text=Product'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta">${p.category}</div>
+                        <h3 class="card-title">${p.name}</h3>
+                        <div class="card-price">${p.price}</div>
+                        <div class="price-note">Price shown is for reference. Final price will be displayed on Amazon/Flipkart.</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Modal Logic
+        function openModal(p) {
+            const modal = document.getElementById('productModal');
+            document.getElementById('modalImg').src = p.image || '';
+            document.getElementById('modalTitle').innerText = p.name;
+            document.getElementById('modalCategory').innerText = p.category;
+            document.getElementById('modalPrice').innerText = p.price;
+            document.getElementById('modalDesc').innerText = p.description;
+            document.getElementById('modalBtn').href = p.affiliate_link;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
